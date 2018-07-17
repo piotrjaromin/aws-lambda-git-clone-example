@@ -69,4 +69,5 @@ Calling this lambda multiple times can return error:
 
 The reason is that, we are not cleaning cloned directory, and despite what we might think of lambda if we run them multiple times in short amount of time we might be learn that they do have some state (although unstable).
 
+If you want to know more I have wrote [post about it](https://piotrjaromin.pl/aws/lambda/git/nodejs/serverless/deploy/binary/executable/2018/07/17/serverless-with-git.html)
 
