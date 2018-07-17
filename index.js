@@ -15,18 +15,19 @@ exports.lambdaHandler = function(event, context) {
     console.log("Starting lambda");
 
     // This variables can be set up in AWS Lambda console
-    // const gitUser = process.env.GIT_USER;
-    // const gitPassword = process.env.GIT_PASSWORD;
-    // const repoName = process.env.GIT_REPO_NAME;
 
     const { gitUser, gitPassword, repoName } = event;
-    const repoUrl = `https://${gitUser}:${gitPassword}@github.com/${repoName}.git`;
+    let repoUrl = `https://${gitUser}:${gitPassword}@github.com/${repoName}.git`;
+
+    if ( !gitUser && !gitPassword ) {
+      repoUrl = `https://github.com/${repoName}.git`;
+    }
 
     // To this directory repository contents will be cloned
     // It must be in /tmp directory otherwise lambda will error with  "fatal: could not create work tree dir 'cloned_code': Read-only file system"
     const destPath = "/tmp/cloned_code"
 
-    console.log("Env variables set, performing clone");
+    console.log("variables set, performing clone");
     // execute clone command and print files
     return git()
         .silent(true)
